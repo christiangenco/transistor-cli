@@ -6,6 +6,7 @@ export async function listShows(opts: {
   private?: boolean;
   page?: number;
   per?: number;
+  compact?: boolean;
 }) {
   const params: Record<string, any> = {};
   if (opts.query) params.query = opts.query;
@@ -14,6 +15,25 @@ export async function listShows(opts: {
   if (opts.per !== undefined) params["pagination[per]"] = opts.per;
 
   const data = await apiGet("/shows", params);
+
+  // Strip episodes_ids from list view (can be hundreds of IDs per show)
+  if (data?.items) {
+    for (const item of data.items) {
+      delete item.episodes_ids;
+    }
+  }
+
+  if (opts.compact && data?.items) {
+    const compact = data.items.map((s: any) => ({
+      id: s.id,
+      title: s.title,
+      slug: s.slug,
+      episode_count: s.episode_count,
+    }));
+    success({ items: compact, meta: data.meta });
+    return;
+  }
+
   success(data);
 }
 

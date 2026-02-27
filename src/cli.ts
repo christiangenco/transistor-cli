@@ -31,6 +31,7 @@ shows
   .option("--private", "Filter for private shows")
   .option("--page <n>", "Page number", parseInt)
   .option("--per <n>", "Results per page", parseInt)
+  .option("--compact", "Show only id, title, slug, episode_count")
   .action(async (opts) => {
     const { listShows } = await import("./commands/shows.js");
     await listShows(opts);
