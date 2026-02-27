@@ -10,7 +10,7 @@ transistor-cli shows list [--query Q] [--private]    # List shows
 transistor-cli shows get <id>                        # Get show by ID/slug
 transistor-cli shows update <id> [--title T] ...     # Update show metadata
 
-transistor-cli episodes list --show <id> [--status published|draft|scheduled] [--per N]
+transistor-cli episodes list --show <id> [--status published|draft|scheduled] [--per N] [--query Q] [--order desc|asc] [--page N]
 transistor-cli episodes get <id>                     # Get episode details
 transistor-cli episodes create --show <id> --title "T" [--audio-file /path.mp3] [--publish]
 transistor-cli episodes update <id> [--title T] [--description HTML] ...
@@ -20,8 +20,11 @@ transistor-cli analytics show <showId> [--start dd-mm-yyyy] [--end dd-mm-yyyy]
 transistor-cli analytics episodes <showId> [--start dd-mm-yyyy] [--end dd-mm-yyyy]
 transistor-cli analytics episode <episodeId> [--start dd-mm-yyyy] [--end dd-mm-yyyy]
 
-transistor-cli subscribers list --show <id>          # List private podcast subscribers
+transistor-cli subscribers list --show <id> [--query Q] [--page N] [--per N]
+transistor-cli subscribers get <id>                  # Get a single subscriber by ID
 transistor-cli subscribers create --show <id> --email E [--skip-welcome-email]
+transistor-cli subscribers create-batch --show <id> --emails a@x.com b@y.com [--skip-welcome-email]
+transistor-cli subscribers update <id> --email NEW   # Update subscriber's email
 transistor-cli subscribers delete --id <id>          # Or: --show <id> --email E
 
 transistor-cli webhooks list --show <id>
